@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class='title'>Case Converter</div>
+    <textarea id="textarea"></textarea>
+	</br>
+    <button id="upper-case" onclick = 'uppr()'>Duze</button>
+    <button id="lower-case" onclick = 'lower()'>Male</button>
+    <button id="proper-case" onclick = 'proper()'>Proper</button>
+    <button id="sentence-case" onclick = 'sentence()'>Sentence</button>
+	<button id='save-text-file' onclick = 'download()'>Save as file</button>
+
+    <script>
+        
+        function uppr(){
+			let text = document.getElementById('textarea').value;
+            return document.getElementById('textarea').value = text.toUpperCase();
+        }
+		
+        function lower(){
+			let text = document.getElementById('textarea').value;
+            return document.getElementById('textarea').value = text.toLowerCase();
+        }
+		
+        function proper(){
+			let text = document.getElementById('textarea').value;
+			let w = text.split(' ');
+			for (let i = 0; i < w.length; i++){
+				w[i] = w[i][0].toUpperCase() + w[i].slice(1);
+			}
+            return document.getElementById('textarea').value = w.join(' ');
+        }
+		
+        function sentence(){
+			let text = document.getElementById('textarea').value;
+			let w = text.split('.');
+			if (w[-1] == null){
+				w.pop();
+			}
+			for (let first = 0; first < w.length; first++){
+				w[first] = w[first].trim();
+				w[first] = w[first][0].toUpperCase() + w[first].toLowerCase().slice(1);
+			}
+			return document.getElementById('textarea').value = w.join('. ') + '.';
+        }
+		
+		function download(filename, text){
+			var text = document.getElementById('textarea').value;
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+
+			element.style.display = 'none';
+			document.body.appendChild(element);
+
+			element.click();
+
+			document.body.removeChild(element);
+			}
+			// Start file download.
+
+			
+    </script>
+</body>
+</html>
